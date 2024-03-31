@@ -3,7 +3,7 @@
 const Footer = () => {
   return (
     <>
-      <div className="container">
+      <footer>
         <div className="top">
           <div className="left">
             <div className="bold">
@@ -25,7 +25,7 @@ const Footer = () => {
         <div className="bottom">
           <p>&copy; GROUP 2</p>
         </div>
-      </div>
+      </footer>
     </>
   );
 };
