@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <div>Welcome to Pay Wave</div>
+    <div>Welcome to Interswitch Pay</div>
   )
 }
 
