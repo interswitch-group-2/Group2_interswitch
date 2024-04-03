@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Header() {
+function Header( { title }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -39,9 +39,9 @@ function Header() {
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <div className="w-full md:block md:w-auto mr-auto" id="navbar-default">
           <div className="text-gray-600 flex">
-            <a href="#" title="dashboard" className="px-2 py-1 mx-1 mt-3 ml-6 text-xl color-#FDFDFD">
-              Welcome to Interswitch Pay
-            </a>
+            <h1 href="#" title="dashboard" className="px-2 py-1 mx-1 mt-3 ml-6 text-xl color-#FDFDFD">
+              { title }
+            </h1>
           </div>
         </div>
       </div>
