@@ -48,3 +48,48 @@
     place-content: flex;
     text-align: center;
   }
+  .login-page {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  .login-page h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .login-page input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+  }
+  
+  .login-page button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-page button:hover{
+    background-color: #0056b3;
+  }
+  
+  .login-page .error{
+    color: rgb(238, 20, 20);
+    margin-top: 10px;
+  }
+  
+  .login-page p {
+    margin-top: 10px;
+    color: black; 
+  }
