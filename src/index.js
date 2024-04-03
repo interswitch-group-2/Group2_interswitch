@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-
+import 'tailwindcss/tailwind.css'; // Corrected import path
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -9,5 +9,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-
