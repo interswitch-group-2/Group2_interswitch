@@ -11,65 +11,97 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() =>
     localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null
   );
-  const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true); // Remove unused variable
+  const [error, setError] = useState(null); 
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Define updateToken outside of AuthProvider to avoid unnecessary re-renders
-  const updateToken = async () => {
+  const loginUser = async (e) => {
+    e.preventDefault();
+    setError(null); 
+
     try {
-      let response = await fetch('/auth/jwt/refresh/', {
+      const response = await fetch('/auth/jwt/create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          refresh: authTokens.refresh,
+          'username': e.target.username.value,
+          'password': e.target.password.value,
         }),
       });
-      let data = await response.json();
+      const data = await response.json();
+      let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
 
       if (response.status === 200) {
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
         localStorage.setItem('authTokens', JSON.stringify(data));
-      } else {
-        logoutUser();
+        navigate('/admin-dashboard');
+      } else if(response.status === 401) {
+        errorMessage = data.detail
+        setError(errorMessage);
+        // console.log(errorMessage)
+      }
+      else {
+        setError(errorMessage);
+        // console.log(errorMessage)
       }
     } catch (error) {
-      console.error('Error updating token:', error);
-      logoutUser();
+      console.error('Error during login:', error);
+      // setError('An error occurred during login. You might need to input your details correctly and try again.');
     }
   };
+
 
   const logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem('authTokens');
-    navigate('/login');
+    navigate('/');
   };
 
-  const loginUser = async (e) => {
-    // Your login logic
-  };
+  const updateToken = async (e) => {
+    let response = await fetch('/auth/jwt/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'refresh': authTokens.refresh
+        }),
+      });
+      let data = await response.json();
 
-  useEffect(() => {
-    let fourMinutes = 1000 * 60 * 4;
-    let interval = setInterval(() => {
-      if (authTokens) {
-        updateToken();
+      if(response.status === 200){
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem('authTokens', JSON.stringify(data));
+
       }
-    }, fourMinutes);
-    return () => clearInterval(interval);
-  }, [authTokens]);
+      else{
+        logoutUser()
+      }
+  }
 
   const contextData = {
     user: user,
-    error: error,
+    error : error,
     authTokens: authTokens,
     loginUser: loginUser,
     logoutUser: logoutUser,
   };
+
+  useEffect(() => {
+
+        let fourMinutes = 1000 * 60 * 4
+        let interval = setInterval(()=> {
+            if(authTokens){
+                updateToken()
+            }
+        }, fourMinutes)
+        return ()=> clearInterval(interval)
+  }, [authTokens, loading])
 
   return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
 };
