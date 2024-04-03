@@ -7,6 +7,7 @@ import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header'
 import { AuthProvider } from './Context/AuthContext'
 
+
 function App() {
   // const isSignUpPage = window.location.pathname === '/';
   const isLoginPage = window.location.pathname === '/login';
