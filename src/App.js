@@ -8,6 +8,7 @@ import Header from './Components/Header/Header'
 import { AuthProvider } from './Context/AuthContext'
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 import SignupPage from "./Pages/Admin/Signup/SignupPage";
+import ListItems from "./Pages/ListItems/ListItems";
 
 
 function App() {
@@ -26,8 +27,9 @@ function App() {
             
             {/* <Route path="/" element={<SignUpPage />} />  */}
             <Route path="/" element={<LoginPage />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/add-new-user" element={<SignupPage />} />
+            <Route path="/list-item" element={<ListItems />} />
           </Routes>
           {footerComponent}
           </AuthProvider>
