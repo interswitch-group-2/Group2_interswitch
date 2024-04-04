@@ -1,4 +1,4 @@
-const Header = () => {
+const Header = ({title}) => {
   return (
     <>
       <header className="w-full overflow-hidden text-black-400">
@@ -9,7 +9,7 @@ const Header = () => {
               className="mr-10"
               alt="Interswitch Logo"
               />
-              <p className="text-center font-bold leading-tight tracking-tight text-white-900 dark:text-white">Welcome to Safe Gate</p>
+              <p className="text-center font-bold leading-tight tracking-tight text-white-900 dark:text-white">{title}</p>
         </div>
       </header>
     </>
