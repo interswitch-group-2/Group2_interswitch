@@ -6,12 +6,14 @@ import LoginPage from './Pages/Login/LoginPage';
 import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header'
 import { AuthProvider } from './Context/AuthContext'
+import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
+import SignupPage from "./Pages/Admin/Signup/SignupPage";
 
 
 function App() {
   // const isSignUpPage = window.location.pathname === '/';
-  const isLoginPage = window.location.pathname === '/login';
-  const headerComponent = isLoginPage ? <Header title='Welcome to Interswitch Pay'/> : <Header title='Welcome to Interswitch Pay'/>;
+  const isLoginPage = window.location.pathname === '/';
+  const headerComponent = isLoginPage ? <Header title='Welcome to Safe Gate'/> : <Header title='Welcome to Safe Gate Admin Dashboard'/>;
   const footerComponent = isLoginPage ? <Footer /> : <Footer />;
 
   return (
@@ -24,8 +26,10 @@ function App() {
             
             {/* <Route path="/" element={<SignUpPage />} />  */}
             <Route path="/" element={<LoginPage />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/add-new-user" element={<SignupPage />} />
           </Routes>
-          { footerComponent }
+          {footerComponent}
           </AuthProvider>
         </div>
       </div>
