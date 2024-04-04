@@ -29,7 +29,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/add-new-user" element={<SignupPage />} />
-            <Route path="/list-item" element={<ListItems />} />
+            <Route path="/items" element={<ListItems />} />
           </Routes>
           {footerComponent}
           </AuthProvider>
