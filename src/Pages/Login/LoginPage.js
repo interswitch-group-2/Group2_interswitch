@@ -9,15 +9,15 @@ const LoginPage = () => {
     <div className="login-page">
       {error && <div className="error">{error}</div>}
       <form onSubmit={loginUser}>
-      <section class="bg-gray-50 dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <section class="dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0">
   <img
       src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg"
               width="130"
               className="mb-4"
               alt="Interswitch Logo"
               />
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-6 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Sign in to your account
