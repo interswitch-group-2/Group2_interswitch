@@ -9,6 +9,7 @@ import { AuthProvider } from './Context/AuthContext'
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 import SignupPage from "./Pages/Admin/Signup/SignupPage";
 import ListItems from "./Pages/ListItems/ListItems";
+import CreateBlacklist from "./Pages/Admin/CreateBlacklist/CreateBlacklist";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/add-new-user" element={<SignupPage />} />
             <Route path="/items" element={<ListItems />} />
+            <Route path="/create-blacklist" element={<CreateBlacklist />} />
           </Routes>
           {footerComponent}
           </AuthProvider>
