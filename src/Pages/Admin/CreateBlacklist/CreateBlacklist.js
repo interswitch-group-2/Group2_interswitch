@@ -77,20 +77,91 @@ const CreateBlacklist = () => {
   //const isPermitted = user.isAdmin || user.isBlacklisted
   const isPermitted = true;
   return (
-    <div>
-        {isPermitted ? (<form onSubmit={handleBlacklistSubmit}>
-            <input type="text" id='item' placeholder='Item Name'/>
-            <input type="text" id='item' placeholder='Category'/>
-            <input type="text" id='reasons' placeholder='Reason for blacklist'/>
-            <button type='submit' class="w-full text-white 
-                    bg-blue-300 hover:bg-black-700 focus:ring-4 
-                    focus:outline-none focus:ring-primary-300 
-                    font-medium rounded-lg text-sm px-5 py-2.5 
-                    text-center dark:bg-primary-600 dark:hover:bg-primary-700 
-                    dark:focus:ring-primary-800" >Blacklist Item</button>
-        </form>) : (<p>You are not permitted to see this page</p>) }
+    <>
+    <div className="container flex fixed top-0 left-0">
+      <section className="left-panel">
+        <aside className="relative bg-sidebar bg-black h-screen w-64 hidden sm:block shadow-xl" x-show="isOpen()">
+          <div className="p-6 inline-flex">
+            <a href="#" className="text-white text-3xl font-semibold uppercase hover:text-gray-300"><img src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg" style={{ width: '150px' }} alt="interswitch Logo" /></a>
+            <a
+              className="ml-auto  flex-1 flex items-center"
+              href="#"
+            >
+              <span className="iconify text-gray-400 text-xl " data-icon="gg:menu-right"></span>
+            </a>
+          </div>
+          <nav className="text-white text-base font-semibold ">
+            <div className="flex flex-col ml-2">
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Dashboard</span>
+              </a>
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Add New User</span>
+              </a>
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>List of Items</span>
+              </a>
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackList Items</span>
+              </a>
+              {/* Other anchor elements */}
+            </div>
+          </nav>
+        </aside>
+      </section>
+
+       <div class="w-full my-[32%] justify-center flex-col flex-wrap md:ml-96 mt-52 block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                             
+
+
+      <form class="max-w-sm mx-auto">
+        <div class="text-2xl text-center">
+          <span>Create Blacklist</span>
+        </div>
+  <div class="mb-5">
+    <label for="Name of Item" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name of item</label>
+    <input type="text" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Name of item" required />
+  </div>
+  <div class="mb-5">
+    <label for="Name of Category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category of Item</label>
+    <input type="text" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+  </div>
+  <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reason</label>
+  <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Reason" required></textarea>
+<div class="mt-5">
+<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">sumit</button>
+</div>
+</form>
+</div>
+
     </div>
+</>
   )
 }
 
 export default CreateBlacklist
+
+
+
+
+

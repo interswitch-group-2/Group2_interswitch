@@ -1,17 +1,19 @@
 const Header = ({title}) => {
   return (
     <>
-      <header className="w-full bg-powderblue text-black-300 fixed top-0 left-0 right-0">
+
+      <header className="w-full bg-powderblue text-black-300 fixed top-0 left-0">
         <div className="bg-blue-300">
-        <img
-              src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg"
-              width="130"
-              className="mr-10"
-              alt="Interswitch Logo"
-              />
-              <p className="text-center leading-tight tracking-tight text-white-900 text-3xl dark:text-white">{title}</p>
-        </div>
+        <a href="#" className="flex items-center">
+            <img src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg" style={{ width: '150px' }} alt="interswitch Logo" />
+          
+            <p className="flex justify-between text-center mx-[32%] text-3xl ">{title}</p>
+          </a>
+                              
+              </div>
+
       </header>
+      
     </>
   );
 };

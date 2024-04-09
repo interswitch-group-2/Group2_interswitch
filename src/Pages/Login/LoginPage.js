@@ -6,11 +6,11 @@ const LoginPage = () => {
   const { loginUser, error } = useContext(AuthContext);
 
   return (
-    <div className="login-page">
+    <div className="w-full md:ml-32 mt-52 items-center justify-center">
       {error && <div className="error">{error}</div>}
-      <form onSubmit={loginUser}>
-      <section class="dark:bg-gray-900">
-  <div class="flex flex-col items-center justify-center mx-auto md:h-screen lg:py-0">
+      <form className='' onSubmit={loginUser}>
+      <section className="dark:bg-gray-900">
+  <div class="flex flex-col items-center justify-center mx-auto min:h-screen lg:py-0">
   <img
       src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg"
               width="130"
@@ -40,12 +40,8 @@ const LoginPage = () => {
                             <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                           </div>
                       </div>
-                      {/* <a href="#" class="text-sm font-medium text-blue-300 hover:underline dark:text-blue-300">Forgot password?</a> */}
                   </div>
-                  <button type="submit" class="w-full text-white bg-blue-300 hover:bg-black-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-                  {/* <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                      Don’t have an account yet? <a href="#" class="font-medium text-blue-300 hover:underline dark:text-primary-300">Sign up</a>
-                  </p> */}
+                  <button type="submit" class="w-full text-white bg-blue-400 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
               </form>
           </div>
       </div>
