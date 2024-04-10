@@ -2,7 +2,7 @@ import React from 'react';
 
 const AdminDashboard = () => {
   return (
-    <div className="container md:flex">
+<div className="container md:flex">
       <section className="left-panel">
         <aside className="relative bg-sidebar bg-black h-screen w-64 hidden sm:block shadow-xl" x-show="isOpen()">
           <div className="p-6 inline-flex">
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
           </div>
           <nav className="text-white text-base font-semibold ">
             <div className="flex flex-col ml-2 ">
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/admin">
                 <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Dashboard</span>
               </a>
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/add-new-user">
                 <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -32,7 +32,7 @@ const AdminDashboard = () => {
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Add New User</span>
               </a>
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/create-blacklist">
                 <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -40,21 +40,23 @@ const AdminDashboard = () => {
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Create BlackList</span>
               </a>
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
-                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackList Items</span>
-              </a>
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+              
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/items">
                 <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>List of Items</span>
+              </a>
+
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/blacklisted-items">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackListed Items</span>
               </a>
               {/* Other anchor elements */}
             </div>
