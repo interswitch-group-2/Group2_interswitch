@@ -1,6 +1,90 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react';
+import AuthContext from '../../../Context/AuthContext';
 
-const BlacklistedUsers = () => {
+const BlacklistedItems = () => {
+  // const [blacklist, setBlacklist] = useState([]);
+  const [blacklist, setBlacklist] = useState([
+    {
+      "id": 1,
+      "name": "Item 1",
+      "category": "Category A",
+      "reason": "Reason 1"
+    },
+    {
+      "id": 2,
+      "name": "Item 2",
+      "category": "Category B",
+      "reason": "Reason 2"
+    },
+    {
+      "id": 3,
+      "name": "Item 3",
+      "category": "Category C",
+      "reason": "Reason 3"
+    }
+  ]);
+  const [reason, setReason] = useState('');
+  const { authTokens, user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchBlacklistedItems = async () => {
+  //     try {
+  //       const response = await fetch('api/blacklisted-items');
+  //       const data = await response.json();
+  //       setBlacklist(data);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching blacklisted items:', error);
+  //     }
+  //   };
+  //   fetchBlacklistedItems();
+  // }, []);
+
+  // Initialize the reasons state with an empty string for each item in the blacklist
+  const [reasons, setReasons] = useState(Array(blacklist.length).fill(''));
+
+  const handleReasonChange = (e, index) => {
+    const newReasons = [...reasons];
+    newReasons[index] = e.target.value;
+    setReasons(newReasons);
+  };
+
+  const handleRemoveFromBlacklist = async (itemId, index) => {
+    try {
+      const response = await fetch(`api/blacklisted-items/${itemId}/remove`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authTokens}`,
+        },
+        body: JSON.stringify({ reason: reasons[index] }),
+      });
+
+      if (response.ok) {
+        setBlacklist((prevBlacklist) => prevBlacklist.filter((item) => item.id !== itemId));
+
+        const updateResponse = await fetch(`api/items-list/${itemId}/update`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authTokens}`,
+          },
+          body: JSON.stringify(removedItem), // Include the removed item's data
+        });
+
+        if (!updateResponse.ok) {
+          console.error('Failed to update items-list table:', updateResponse.statusText);
+        }
+      } else {
+        console.error('Failed to remove item from blacklist:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error removing item from blacklist:', error);
+    }
+  };
+
+
   return (
     <div className="container md:flex">
       <section className="left-panel">
@@ -40,14 +124,7 @@ const BlacklistedUsers = () => {
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Create BlackList</span>
               </a>
-              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
-                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackList Items</span>
-              </a>
+              
               <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
                 <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
@@ -55,6 +132,15 @@ const BlacklistedUsers = () => {
                   <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>List of Items</span>
+              </a>
+
+              <a className="inline-flex items-center w-full px-4 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="admin_dashbord_welcome.html">
+                <svg className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 20V10" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 20V4" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M6 20V14" stroke="#798BB4" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackListed Items</span>
               </a>
               {/* Other anchor elements */}
             </div>
@@ -82,77 +168,54 @@ const BlacklistedUsers = () => {
               Category of items
           </th>
           <th scope="col" class="py-3 px-6">
-              Reasons
+              Reasons for Blacklisted
           </th>
           <th scope="col" class="py-3 px-6">
-              status
-          </th>
-          <th scope="col" class="py-3 px-6">
-            actions
-        </th>
-        <th scope="col" class="py-3 px-6">
-              date
+              Reasons for Removing from Blacklisted Items
           </th>
       </tr>
   </thead>
   <tbody>
-      <tr class="bg-white border-b dark:bg-gray-500 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="p-4 w-4">
-              <div class="flex items-center">
-                  <input id="checkbox-table-search-2" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                  <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-              </div>
-          </td>
-          <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Ayoade
-          </th>
-          <td class="py-4 px-6">
-            <span class="py-2 px-3 bg-purple-500 rounded-lg text-white inset-4">unknown</span>
-        </td>
-          <td class="py-4 px-6 text-gray-900">
-              info@gamil.com
-          </td>
-          <td class="py-4 px-6 text-gray-900">
-            <span class="py-2 px-3 bg-red-500 rounded-lg text-white inset-4">blacklisted</span>
-        </td>
-        <td class="py-4 px-6">
-          <a href="#" class="font-medium inline-flex items-center text-blue-600 dark:text-blue-500 hover:underline">
-          <span>View</span>
-        </a> 
-      </td>
-      <td class="py-4 px-6 text-gray-900">
-              13-05-2021
-          </td>
-
-      </tr>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          <td class="p-4 w-4">
-              <div class="flex items-center">
-                  <input id="checkbox-table-search-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                  <label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-              </div>
-          </td>
-          <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            Clement
-          </th>
-          <td class="py-4 px-6">
-            <span class="py-2 px-3 bg-green-500 rounded-lg text-white inset-4">unknown</span>
-        </td>
-          <td class="py-4 px-6 text-gray-900">
-              info@gamil.com
-          </td>
-          <td class="py-4 px-6 text-gray-900">
-            <span class="py-2 px-3 bg-red-500 rounded-lg text-white inset-4">blacklisted</span>
-        </td>
-        <td class="py-4 px-6">
-          <a href="#" class="font-medium inline-flex items-center text-blue-600 dark:text-blue-500 hover:underline">
-          <span>View</span>
-        </a> 
-      </td>
-      <td class="py-4 px-6 text-gray-900">
-              22-01-2022
-          </td>
-      </tr>
+  {blacklist.map((item, index) => (
+              <tr key={item.id} className="bg-white border-b dark:bg-gray-500 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td className="p-4 w-4">
+                <div className="flex items-center">
+                  <input id={`checkbox-table-search-${item.id}`} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                  <label htmlFor={`checkbox-table-search-${item.id}`} className="sr-only">checkbox</label>
+                </div>
+              </td>
+              <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {item.name}
+              </td>
+              <td className="py-4 px-6">
+                <span className="py-2 px-3 bg-purple-500 rounded-lg text-white inset-4">{item.category}</span>
+              </td>
+              <td className="py-4 px-6 text-gray-900">
+                {item.reason}
+              </td>
+              <td className="py-4 px-6">
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    handleRemoveFromBlacklist(item.id, index);
+                  }}>
+                    <input
+                      type="text"
+                      value={reasons[index]}
+                      onChange={(e) => handleReasonChange(e, index)}
+                      className="border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring focus:border-blue-300"
+                      placeholder="Enter reason"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="bg-blue-500 text-white px-3 py-1 ml-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </td>
+            </tr>
+          ))}
   </tbody>
 </table>
 
@@ -160,5 +223,4 @@ const BlacklistedUsers = () => {
       </div>
   )
 }
-
-export default BlacklistedUsers
+export default BlacklistedItems;

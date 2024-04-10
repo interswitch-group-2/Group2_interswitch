@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
         localStorage.setItem('authTokens', JSON.stringify(data));
-        navigate('/admin-dashboard');
+        navigate('/admin');
       } else if(response.status === 401) {
         errorMessage = data.detail
         setError(errorMessage);
@@ -62,28 +62,28 @@ export const AuthProvider = ({ children }) => {
     navigate('/');
   };
 
-  const updateToken = async (e) => {
-    let response = await fetch('/auth/jwt/refresh/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          'refresh': authTokens.refresh
-        }),
-      });
-      let data = await response.json();
+  // const updateToken = async (e) => {
+  //   let response = await fetch('/auth/jwt/refresh/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         'refresh': authTokens.refresh
+  //       }),
+  //     });
+  //     let data = await response.json();
 
-      if(response.status === 200){
-        setAuthTokens(data);
-        setUser(jwtDecode(data.access));
-        localStorage.setItem('authTokens', JSON.stringify(data));
+  //     if(response.status === 200){
+  //       setAuthTokens(data);
+  //       setUser(jwtDecode(data.access));
+  //       localStorage.setItem('authTokens', JSON.stringify(data));
 
-      }
-      else{
-        logoutUser()
-      }
-  }
+  //     }
+  //     else{
+  //       logoutUser()
+  //     }
+  // }
 
   const contextData = {
     user: user,
@@ -93,16 +93,16 @@ export const AuthProvider = ({ children }) => {
     logoutUser: logoutUser,
   };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-        let fourMinutes = 1000 * 60 * 4
-        let interval = setInterval(()=> {
-            if(authTokens){
-                updateToken()
-            }
-        }, fourMinutes)
-        return ()=> clearInterval(interval)
-  }, [authTokens, loading])
+  //       let fourMinutes = 1000 * 60 * 4
+  //       let interval = setInterval(()=> {
+  //           if(authTokens){
+  //               updateToken()
+  //           }
+  //       }, fourMinutes)
+  //       return ()=> clearInterval(interval)
+  // }, [authTokens, loading])
 
   return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
 };

@@ -61,10 +61,23 @@ html,
 
 body {
   margin: 0;
-  /* 1 */
   line-height: inherit;
-  /* 2 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* Disable horizontal overflow */
 }
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1; /* Ensure footer is below moving text */
+}
+
 
 /*
 1. Add the correct height in Firefox.
