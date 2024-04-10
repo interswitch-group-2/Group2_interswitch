@@ -13,7 +13,6 @@ import CreateBlacklist from "./Pages/Admin/CreateBlacklist/CreateBlacklist";
 import AddNewUser from "./Pages/Admin/Signup/AddNewUser";
 import SignUpPage from "./Pages/Admin/Signup/SignUpPage";
 import BlacklistedItems from "./Pages/Admin/BlacklistedItem/BlacklistedItems";
-// import MovingText from "./Components/Animation/MovingText";
 
 
 function App() {
