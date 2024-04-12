@@ -2,80 +2,47 @@ import React, { useEffect, useState, useContext } from 'react';
 import AuthContext from '../../../Context/AuthContext';
 
 const BlacklistedItems = () => {
-  // const [blacklist, setBlacklist] = useState([]);
-  const [blacklist, setBlacklist] = useState([
-    {
-      "id": 1,
-      "name": "Item 1",
-      "category": "Category A",
-      "reason": "Reason 1"
-    },
-    {
-      "id": 2,
-      "name": "Item 2",
-      "category": "Category B",
-      "reason": "Reason 2"
-    },
-    {
-      "id": 3,
-      "name": "Item 3",
-      "category": "Category C",
-      "reason": "Reason 3"
-    }
-  ]);
-  const [reason, setReason] = useState('');
+  const [blacklist, setBlacklist] = useState([]);
+  const [reasons, setReasons] = useState([]);
   const { authTokens, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchBlacklistedItems = async () => {
-  //     try {
-  //       const response = await fetch('api/blacklisted-items');
-  //       const data = await response.json();
-  //       setBlacklist(data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error('Error fetching blacklisted items:', error);
-  //     }
-  //   };
-  //   fetchBlacklistedItems();
-  // }, []);
-
-  // Initialize the reasons state with an empty string for each item in the blacklist
-  const [reasons, setReasons] = useState(Array(blacklist.length).fill(''));
-
-  const handleReasonChange = (e, index) => {
-    const newReasons = [...reasons];
-    newReasons[index] = e.target.value;
-    setReasons(newReasons);
-  };
+  useEffect(() => {
+    const fetchBlacklistedItems = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/blacklist', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${authTokens}`, // Assuming authTokens contains the accessToken
+            'Content-Type': 'application/json'
+          },
+        });
+        const data = await response.json();
+        setItems(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+    fetchBlacklistedItems();
+  }, []);
 
   const handleRemoveFromBlacklist = async (itemId, index) => {
     try {
-      const response = await fetch(`api/blacklisted-items/${itemId}/remove`, {
+      const response = await fetch(`https://safegate-backend-a63df812f989.herokuapp.com/blacklist/remove`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens}`,
         },
-        body: JSON.stringify({ reason: reasons[index] }),
+        body: JSON.stringify({ reason: reasons[index] }), // Send reason for removal
       });
 
       if (response.ok) {
         setBlacklist((prevBlacklist) => prevBlacklist.filter((item) => item.id !== itemId));
-
-        const updateResponse = await fetch(`api/items-list/${itemId}/update`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authTokens}`,
-          },
-          body: JSON.stringify(removedItem), // Include the removed item's data
-        });
-
-        if (!updateResponse.ok) {
-          console.error('Failed to update items-list table:', updateResponse.statusText);
-        }
       } else {
         console.error('Failed to remove item from blacklist:', response.statusText);
       }
@@ -84,7 +51,15 @@ const BlacklistedItems = () => {
     }
   };
 
+  const handleReasonChange = (e, index) => {
+    const newReasons = [...reasons];
+    newReasons[index] = e.target.value;
+    setReasons(newReasons);
+  };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="container md:flex">
       <section className="left-panel">
@@ -169,24 +144,22 @@ const BlacklistedItems = () => {
       </tr>
   </thead>
   <tbody>
-  {blacklist.map((item, index) => (
+            {blacklist.map((item, index) => (
               <tr key={item.id} className="bg-white border-b dark:bg-gray-500 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td className="p-4 w-4">
-                <div className="flex items-center">
-                  <input id={`checkbox-table-search-${item.id}`} type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
-                  <label htmlFor={`checkbox-table-search-${item.id}`} className="sr-only">checkbox</label>
-                </div>
-              </td>
-              <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {item.name}
-              </td>
-              <td className="py-4 px-6">
-                <span className="py-2 px-3 bg-purple-500 rounded-lg text-white inset-4">{item.category}</span>
-              </td>
-              <td className="py-4 px-6 text-gray-900">
-                {item.reason}
-              </td>
-              <td className="py-4 px-6">
+                <td className="p-4 w-4">
+                  {/* Checkbox input */}
+                </td>
+                <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {item.name}
+                </td>
+                <td className="py-4 px-6">
+                  {/* Category display */}
+                </td>
+                <td className="py-4 px-6 text-gray-900">
+                  {item.reason}
+                </td>
+                <td className="py-4 px-6">
+                  {/* Form to enter reason for removal */}
                   <form onSubmit={(e) => {
                     e.preventDefault();
                     handleRemoveFromBlacklist(item.id, index);
@@ -207,13 +180,12 @@ const BlacklistedItems = () => {
                     </button>
                   </form>
                 </td>
-            </tr>
-          ))}
-  </tbody>
-</table>
-
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      </div>
-  )
-}
+    </div>
+  );
+};
 export default BlacklistedItems;
