@@ -10,8 +10,7 @@ const Footer = () => {
             <h4 className="text-center">About Us</h4>
             <p>At Safe Gate, our mission is to provide innovative solutions for managing blacklisted 
               items, ensuring security and efficiency for businesses worldwide. 
-              With a dedicated team of experts, we strive to deliver cutting-edge technologies that streamline the process of identifying and handling blacklisted items, 
-              helping our clients minimize risks and maximize productivity.</p> <br />
+              With a dedicated team of experts, we strive to deliver cutting-edge technologies that streamline the process of identifying and handling blacklisted items.</p>
         <a href='#' className="text-center">Terms & Condition</a><br />
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a class="hover:underline"> Interswitch Group 2.™</a>. All Rights Reserved.</span>
         </span>
