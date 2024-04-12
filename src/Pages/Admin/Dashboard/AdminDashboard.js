@@ -57,10 +57,8 @@ const AdminDashboard = () => {
       </section>
       <div class="container md:flex flex flex-wrap mt-6">
       
-      <div class="w-full lg:w-2/6 h-52 pr-0 lg:px-4  md:ml-96 mt-52 block max-w-md rounded-lg bg-blue-400 p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
-                            <div class="welcome-boxes  p-5 ">
-
-
+      <div class="w-full lg:w-2/6 h-52 pr-0 lg:px-4  md:ml-96 mt-52 block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 ">
+                            <div class="welcome-boxes  p-5 ">               
                 <div class="flex flex-row justify-between items-center capitalize">
               
                   <div class="h6 text-gray-700 font-semibold">Add New Users</div>
