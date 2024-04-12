@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 
 const AuthContext = createContext();
+// const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
 export const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() =>
@@ -21,26 +22,30 @@ export const AuthProvider = ({ children }) => {
     setError(null); 
 
     try {
-      const response = await fetch('/auth/jwt/create/', {
+      // const response = await fetch(`${apiUrl}/auth/login/`, {
+      const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/auth/login', {
         method: 'POST',
+        // mode: 'cors',
+        // credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          'username': e.target.email.value,
+          'email': e.target.email.value,
           'password': e.target.password.value,
         }),
       });
       const data = await response.json();
+      console.log(data)
       let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
 
       if (response.status === 200) {
-        setAuthTokens(data);
-        setUser(jwtDecode(data.access));
-        localStorage.setItem('authTokens', JSON.stringify(data));
+        setAuthTokens(data.data);
+        setUser(jwtDecode(data.data));
+        localStorage.setItem('authTokens', JSON.stringify(data.data));
         navigate('/admin');
       } else if(response.status === 401) {
-        errorMessage = data.detail
+        errorMessage = data.message
         setError(errorMessage);
         // console.log(errorMessage)
       }
@@ -63,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // const updateToken = async (e) => {
-  //   let response = await fetch('/auth/jwt/refresh/', {
+  //   let response = await fetch('/auth/update/', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json',
