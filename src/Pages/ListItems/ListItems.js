@@ -79,6 +79,7 @@ const ItemList = () => {
 
   return (
     <div className="flex">
+    <div className="flex">
       {/* Sidebar */}
       <section className="left-panel">
         <aside className="relative bg-sidebar bg-black h-screen w-64 hidden sm:block shadow-xl">
@@ -134,6 +135,7 @@ const ItemList = () => {
           </nav>
         </aside>
       </section>
+</div>
 
       {/* Main content */}
       <div className="flex-1 my-32">
