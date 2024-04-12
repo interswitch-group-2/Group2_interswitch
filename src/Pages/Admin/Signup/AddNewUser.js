@@ -3,21 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../../Context/AuthContext';
 
 const AddNewUser = () => {
-  // const { user } = useContext(AuthContext); 
+  const { user, authTokens } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    isBlacklisted: false,
-    isAdmin: false,
+    role: '', // Add role field to the formData state
   });
   const [error, setError] = useState(null);
 
   const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [name]: newValue });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -29,20 +26,23 @@ const AddNewUser = () => {
     }
 
     try {
-      const response = await fetch('/api/users/create', {
+      const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/user/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('authTokens')}`, // Include the JWT token in the request headers
+          'Authorization': `Bearer ${authTokens}`, // Include the JWT token in the request headers
         },
         body: JSON.stringify(formData),
       });
 
-      if (response.status === 201) {
-        navigate('/admin-dashbord');
+      if (response.status === 200) {
+        alert('New user added successfully')
+        navigate('/admin');
       } else {
         const data = await response.json();
-        setError(data.message); // Assuming backend returns an error message
+        alert('This email has already been used before!')
+        // console.log(data)
+        setError(data.error); // Assuming backend returns an error message
       }
     } catch (error) {
       console.error('Error during registration:', error);
@@ -51,71 +51,68 @@ const AddNewUser = () => {
   };
 
   // Check if user is admin
-  // const isAdmin = user && user.isAdmin;
-  const isAdmin = true
+  // const isAdmin = user.role === 'ROLE_USER_ADMIN';
+  // Define possible roles
+  const roles = ["ROLE_USER_ADMIN", "ROLE_BLACKLIST_ADMIN"];
+
+  // Render the page content only if user is admin
+  // if (!isAdmin) {
+  //   return <div>You can't see this page because you are not an admin.</div>;
+  // }
 
   return (
-    
-  
-  
-        <div class="bg-grey-lighter md:ml-32 min-h-screen flex flex-col">
-            <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"> 
-            <img
-      src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg"
-              width="130"
-              className="mb-4"
-              alt="Interswitch Logo"
-              />
-                <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 class="mb-8 text-2xl text-center">Add New User</h1>
-                    <input 
-                        type="text"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="email"
-                        placeholder="Email" />
+    <div className="bg-grey-lighter md:ml-32 min-h-screen flex flex-col"> 
+      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"> 
+        <img
+          src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg"
+          width="130"
+          className="mb-4"
+          alt="Interswitch Logo"
+        />
+        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+          <h1 className="mb-8 text-2xl text-center">Add New User</h1>
+          <input 
+            type="text"
+            className="block border border-grey-light w-full p-3 rounded mb-4"
+            name="email"
+            placeholder="Email" 
+            onChange={handleFormChange}
+          />
+          
+          {/* Dropdown menu for selecting role */}
+          <label htmlFor="role">Role</label>
+          <select
+            name="role"
+            id="role"
+            className="block border border-grey-light w-full p-3 rounded mb-4"
+            onChange={handleFormChange}
+          >
+            <option value="">Select Role</option>
+            {roles.map((role, index) => (
+              <option key={index} value={role}>{role}</option>
+            ))}
+          </select>
 
-                    <input 
-                        type="password"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="password"
-                        placeholder="Password" />
-                    <label htmlFor="admin">Admin Permission </label>
-                    <input
-                        type="checkbox"
-                        id="admin"
-                        name="isAdmin"
-                        checked={formData.isAdmin}
-                        onChange={handleFormChange}
-                    /> <br />
+          <button
+            type="submit"
+            className="w-full text-center py-3 rounded bg-blue-400 text-white hover:bg-blue-600 focus:outline-none my-4"
+            onClick={handleSubmit}
+          >
+            Create Account
+          </button>
 
-                    <label htmlFor="blacklist">Blacklist Permission </label>
-                    <input
-                        type="checkbox"
-                        id="blacklist"
-                        name="isBlacklisted"
-                        checked={formData.isBlacklisted}
-                        onChange={handleFormChange}
-                    /> <br />
-
-                    <button
-                        type="submit"
-                        class="w-full text-center py-3 rounded bg-blue-400 text-white hover:bg-blue-600 focus:outline-none my-4"
-                    >
-                        Create Account
-                    </button>
-
-                    <div class="text-center text-sm text-grey-dark mt-4">
-                        By signing up, you agree to the <br /> 
-                        <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                            Terms of Service
-                        </a> and <br />
-                        <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                            Privacy Policy
-                        </a>
-                    </div>
-                </div>
-            </div>
+          <div className="text-center text-sm text-grey-dark mt-4">
+            By signing up, you agree to the <br /> 
+            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+              Terms of Service
+            </a> and <br />
+            <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
+              Privacy Policy
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
   );
 };
 

@@ -62,10 +62,10 @@ html,
 body {
   margin: 0;
   line-height: inherit;
-  min-height: 100vh;
+  /* min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden; /* Disable horizontal overflow */
+  overflow-x: hidden; Disable horizontal overflow */
 }
 
 .flex-grow {
