@@ -43,7 +43,12 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(data.data);
         setUser(jwtDecode(data.data));
         localStorage.setItem('authTokens', JSON.stringify(data.data));
+        alert(data.message)
         navigate('/admin');
+      } else if(response.status === 400) {
+        errorMessage = data.message
+        setError(errorMessage);
+        // console.log(errorMessage)
       } else if(response.status === 401) {
         errorMessage = data.message
         setError(errorMessage);

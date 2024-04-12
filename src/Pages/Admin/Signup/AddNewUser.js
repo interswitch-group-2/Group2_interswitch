@@ -34,15 +34,15 @@ const AddNewUser = () => {
         },
         body: JSON.stringify(formData),
       });
-
-      if (response.status === 200) {
-        alert('New user added successfully')
+      const data = await response.json();
+      if (response.status === 200 || response.status === 201) {
+        // alert('New user added successfully')
+        alert(data.message)
         navigate('/admin');
       } else {
-        const data = await response.json();
         alert('This email has already been used!')
         // console.log(data)
-        setError(data.error); // Assuming backend returns an error message
+        // setError(data.error); // Assuming backend returns an error message
       }
     } catch (error) {
       console.error('Error during registration:', error);

@@ -8,18 +8,36 @@ const ItemList = () => {
   const [reasons, setReasons] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Dummy data for items
-  const dummyItems = [
-    { id: 1, name: 'Item 1', category: 'Category A', isBlacklisted: true },
-    { id: 2, name: 'Item 2', category: 'Category B', isBlacklisted: false },
-    { id: 3, name: 'Item 3', category: 'Category C', isBlacklisted: true },
-    // Add more dummy items here if needed
-  ];
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    // Fetch items here
-  }, []);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/items/all_items', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${authTokens}`,
+            'Content-Type': 'application/json'
+          },
+        });
+        const responseData = await response.json();
+    // console.log('Received data:', responseData);
+
+      if (responseData.status === 0) {
+        const { content } = responseData.data; // Access the content array from the data object
+        setItems(content);
+      } else {
+        setError(responseData.message);
+      }
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+    fetchData();
+  }, [authTokens]);
 
   const handleCheckboxChange = (itemId) => {
     if (selectedItems.includes(itemId)) {
@@ -33,29 +51,31 @@ const ItemList = () => {
     setReasons({ ...reasons, [itemId]: reason });
   };
 
-  const handleBlacklistSubmit = async () => {
-    try {
-      // Prepare data to submit
-      const data = {
-        selectedItems,
-        reasons,
-      };
-
-      // Send data to the server or perform any required action
-      console.log('Submit data:', data);
-
-      // Clear selected items and reasons
-      setSelectedItems([]);
-      setReasons({});
-
-      // Optionally, you can show a success message or perform any other action after submission
-    } catch (error) {
-      // Handle error if submission fails
-      console.error('Error submitting:', error);
-    }
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const isPermitted = true; // Temporary
+  // const handleBlacklistSubmit = async () => {
+  //   try {
+
+  //     const data = {
+  //       selectedItems,
+  //       reasons,
+  //     };
+
+  //     // Send data to the server or perform any required action
+  //     console.log('Submit data:', data);
+
+  //     // Clear selected items and reasons
+  //     setSelectedItems([]);
+  //     setReasons({});
+
+  //     // Optionally, you can show a success message or perform any other action after submission
+  //   } catch (error) {
+  //     // Handle error if submission fails
+  //     console.error('Error submitting:', error);
+  //   }
+  // };
 
   return (
     <div className="flex">
@@ -91,25 +111,25 @@ const ItemList = () => {
               </a>
               <a className="inline-flex items-center w-full px-6 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/create-blacklist">
               <svg xmlns="http://www.w3.org/2000/svg" className=" mr-3" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#798BB4" strokeWidth="1">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-</svg>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>Create BlackList</span>
               </a>
               
               <a className="inline-flex items-center w-full px-6 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/items">
               <svg xmlns="http://www.w3.org/2000/svg" className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#798BB4" strokeWidth="1">
-  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-</svg>
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>List of Items</span>
               </a>
 
               <a className="inline-flex items-center w-full px-6 py-3 block capitalize font-medium text-sm tracking-wide  transform hover:translate-x-2 transition-transform ease-in duration-200 " href="/blacklisted-items">
               <svg xmlns="http://www.w3.org/2000/svg" className=" mr-3" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#798BB4" strokeWidth="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-</svg>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
                 <span className="text-dash text-xl" style={{ color: "#798BB4" }}>BlackListed Items</span>
               </a>
-              {/* Other anchor elements */}
+           
             </div>
           </nav>
         </aside>
@@ -118,7 +138,12 @@ const ItemList = () => {
       {/* Main content */}
       <div className="flex-1 my-32">
         {/* Table */}
-        <div className=" flex justify-center">
+        {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <div className="flex justify-center">
           <table className="w-full text-sm text-left border text-gray-500 dark:text-gray-400">
             <thead className="text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr className="capitalize">
@@ -137,7 +162,7 @@ const ItemList = () => {
               </tr>
             </thead>
             <tbody>
-              {dummyItems.map((item) => (
+              {items.map((item) => (
                 <tr key={item.id} className="bg-white border-b dark:bg-gray-500 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600">
                   {/* Table row content */}
                   <td className="p-2 px-4">
@@ -149,31 +174,42 @@ const ItemList = () => {
                   </td>
                   <td className="py-2 px-6">{item.name}</td>
                   <td className="py-3 px-6">{item.category}</td>
-                  <td className="py-3 px-6">
+                  {/* <td className="py-3 px-6">
                     <input
                       type="text"
                       value={reasons[item.id] || ''}
                       onChange={(e) => handleReasonChange(item.id, e.target.value)}
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      )}
 
-        {/* Submit Button */}
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={handleBlacklistSubmit}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded"
-          >
-            Submit
-          </button>
-        </div>
+      {/* Next Button */}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={handleNextPage}
+          disabled={loading || items.length < 5} // Disable button when loading or no more items to fetch
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded"
+        >
+          Next
+        </button>
       </div>
+
+      {/* Submit Button */}
+      {/* <div className="flex justify-center mt-6">
+        <button
+          onClick={handleBlacklistSubmit}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded"
+        >
+          Submit
+        </button>
+      </div> */}
     </div>
-  );
-};
+  </div>
+)};
 
 export default ItemList;
