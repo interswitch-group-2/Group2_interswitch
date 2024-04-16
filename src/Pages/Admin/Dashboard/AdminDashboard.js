@@ -121,7 +121,7 @@ const AdminDashboard = () => {
                   <div class="">
                       <a>
 
-                      <a type="submit" href='/add-new-user' class=" flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg font-light font-medium text-sm px-44 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-80 mb-24"style={{ color: "#798BB4" }} ><svg xmlns="http://www.w3.org/2000/svg" className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#798BB4" stroke-width="1">
+                      <a type="submit" href='/add-new-user' class=" flex text-white bg-blue-700 relative bottom-0 left-2 right-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg font-light font-medium text-sm px-44 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-80 mb-24"style={{ color: "#798BB4" }} ><svg xmlns="http://www.w3.org/2000/svg" className=" mr-3" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#798BB4" stroke-width="1">
            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
          </svg>Add</a>
                       </a>

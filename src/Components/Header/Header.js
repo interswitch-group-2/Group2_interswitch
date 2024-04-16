@@ -10,7 +10,7 @@ const Header = ({ title, showImage }) => {
               alt="interswitch Logo"
             />
           )}
-          <p className="flex justify-between text-center mx-[32%] text-3xl ">{title}</p>
+          <p className="flex justify-between text-center mx-[30%] text-2xl ">{title}</p>
         </a>
       </div>
     </header>
