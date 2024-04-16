@@ -55,29 +55,8 @@ const ItemList = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  // const handleBlacklistSubmit = async () => {
-  //   try {
-
-  //     const data = {
-  //       selectedItems,
-  //       reasons,
-  //     };
-
-  //     // Send data to the server or perform any required action
-  //     console.log('Submit data:', data);
-
-  //     // Clear selected items and reasons
-  //     setSelectedItems([]);
-  //     setReasons({});
-
-  //     // Optionally, you can show a success message or perform any other action after submission
-  //   } catch (error) {
-  //     // Handle error if submission fails
-  //     console.error('Error submitting:', error);
-  //   }
-  // };
-
   return (
+    <div className="flex">
     <div className="flex">
       {/* Sidebar */}
       <section className="left-panel">
@@ -134,6 +113,7 @@ const ItemList = () => {
           </nav>
         </aside>
       </section>
+</div>
 
       {/* Main content */}
       <div className="flex-1 my-32">
@@ -156,9 +136,7 @@ const ItemList = () => {
                 <th scope="col" className="py-3 px-6">
                   Category of items
                 </th>
-                <th scope="col" className="py-3 px-6">
-                  Reasons for Blacklisting
-                </th>
+                
               </tr>
             </thead>
             <tbody>
@@ -174,13 +152,6 @@ const ItemList = () => {
                   </td>
                   <td className="py-2 px-6">{item.name}</td>
                   <td className="py-3 px-6">{item.category}</td>
-                  {/* <td className="py-3 px-6">
-                    <input
-                      type="text"
-                      value={reasons[item.id] || ''}
-                      onChange={(e) => handleReasonChange(item.id, e.target.value)}
-                    />
-                  </td> */}
                 </tr>
               ))}
             </tbody>
@@ -198,16 +169,6 @@ const ItemList = () => {
           Next
         </button>
       </div>
-
-      {/* Submit Button */}
-      {/* <div className="flex justify-center mt-6">
-        <button
-          onClick={handleBlacklistSubmit}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded"
-        >
-          Submit
-        </button>
-      </div> */}
     </div>
   </div>
 )};

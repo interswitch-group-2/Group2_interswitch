@@ -23,7 +23,7 @@ const SignUpPage = () => {
 
     if (!formData.email || !formData.password) {
       alert('Please fill in all fields!')
-      setError('Please fill in all the fields');
+      // setError('Please fill in all the fields');
       return;
     }
 
