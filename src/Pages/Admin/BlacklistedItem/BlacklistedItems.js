@@ -41,16 +41,17 @@ const BlacklistedItems = () => {
 
   const handleRemoveFromBlacklist = async (itemId, index) => {
     try {
-      const itemName = items[index].item; // Get the item name from the items array
-      const response = await fetch(`https://safegate-backend-a63df812f989.herokuapp.com/blacklist/remove`, {
+      const itemName = items[index].item;
+      const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/blacklist/remove', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens}`,
         },
-        body: JSON.stringify({ itemName, reason: reasons[index] }), 
+        body: JSON.stringify({ itemName, reason: reasons[index] }), // Include both itemName and reason
       });
       const data = await response.json()
+      console.log(data)
       if (response.ok) {
         setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
         alert(data.message);

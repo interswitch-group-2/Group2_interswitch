@@ -44,6 +44,8 @@ const AddNewUser = () => {
         // console.log(data)
         setError(data.error); //backend response
         setError(data.message); //backend response
+        setError(data.error); //backend response
+        setError(data.message); //backend response
       }
     } catch (error) {
       console.error('Error during registration:', error);
