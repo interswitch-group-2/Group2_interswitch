@@ -29,17 +29,19 @@ const CreateBlacklist = () => {
         });
 
         const data = await response.json()
+        console.log(data)
   
         if (response.status === 201 || response.status === 200) {
           navigate('/admin')
+          alert('data created successfully');
           alert(data.message);
         }
         else {
-          setError(data.message)
+          setError(data.error)
         }
       } catch (error) {
         console.error('Error blacklisting item:', error);
-        setError(error.message);
+        // setError(error.message);
         // Display error message to the user
       }
     };
@@ -47,10 +49,12 @@ const CreateBlacklist = () => {
   return (
     <>
     <div className="container md:flex">
-    <section className="left-panel">
-        <aside className="relative bg-sidebar bg-black h-full w-64 hidden sm:block shadow-xl" x-show="isOpen()">
+      <section className="left-panel">
+        <aside className="relative bg-sidebar bg-black h-full min-h-screen w-64 hidden sm:block shadow-xl" x-show="isOpen()">
           <div className="p-6 inline-flex">
-            <a href="#" className="text-white text-3xl font-semibold uppercase hover:text-gray-300"><img src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg" style={{ width: '150px' }} alt="interswitch Logo" /></a>
+            <a href="#" className="text-white text-3xl font-semibold uppercase hover:text-gray-300">
+              <img src="http://www.interswitchgroup.com/assets/images/home/interswitch_logo.svg" style={{ width: '150px' }} alt="interswitch Logo" />
+            </a>
             <a
               className="ml-auto  flex-1 flex items-center"
               href="#"
@@ -99,7 +103,8 @@ const CreateBlacklist = () => {
           </nav>
         </aside>
       </section>
-       <div class="w-full my-[32%] justify-center flex-col flex-wrap md:ml-96 mt-52 block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+      <div className="w-full flex justify-center items-center">
+      <div className="max-w-md">
        {error && <div className="text-red-500 text-sm mt-3">Error: {error}</div>}
        <form onSubmit={handleBlacklistSubmit} className="max-w-sm mx-auto">
             <div className="text-2xl text-center">
@@ -127,6 +132,7 @@ const CreateBlacklist = () => {
               </button>
             </div>
           </form>
+          </div>
           </div>
     </div>
 </>
