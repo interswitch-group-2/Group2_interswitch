@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import AuthContext from '../../Context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const { loginUser, error } = useContext(AuthContext);
 
   return (
-    <div className="w-full my-[32%] justify-center flex-col flex-wrap md:ml-[40%] mt-52 block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+    <div className="w-full my-[12%] justify-center md:ml-[35%] flex-col flex-wrap block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
       {error && <div className="error">{error}</div>}
       <section className="dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center mx-auto min:h-screen lg:py-0">
@@ -53,6 +54,11 @@ const LoginPage = () => {
                 >
                   Sign in
                 </button>
+                <div className="signup-container text-center text-sm text-grey-dark mt-4">
+                <p>
+              Don't have an account? <Link to="/signup" className="text-blue-400 hover:text-blue-600">Sign Up</Link>
+            </p>
+            </div>
               </form>
             </div>
           </div>

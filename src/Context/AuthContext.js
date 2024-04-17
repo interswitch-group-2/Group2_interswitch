@@ -37,29 +37,27 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       console.log(data)
-      // let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
+      let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
 
       if (response.status === 200) {
-        // const { data } = response
         setAuthTokens(data.data);
         setUser(jwtDecode(data.data));
         localStorage.setItem('authTokens', JSON.stringify(data.data));
         alert(data.message)
         navigate('/admin');
-      } 
-      // else if(response.status === 400) {
-      //   errorMessage = data.message
-      //   setError(errorMessage);
+      } else if(response.status === 400) {
+        errorMessage = data.message
+        setError(errorMessage);
         // console.log(errorMessage)
-      // } else if(response.status === 401) {
-      //   errorMessage = data.message
+      } else if(response.status === 401) {
+        errorMessage = data.message
+        setError(errorMessage);
+        // console.log(errorMessage)
+      }
+      // else {
       //   setError(errorMessage);
       //   // console.log(errorMessage)
       // }
-      else {
-        setError(data.message);
-        // console.log(errorMessage)
-      }
     } catch (error) {
       console.error('Error during login:', error);
       // setError('An error occurred during login. You might need to input your details correctly and try again.');

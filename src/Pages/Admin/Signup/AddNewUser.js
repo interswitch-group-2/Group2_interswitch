@@ -118,6 +118,7 @@ const AddNewUser = () => {
         </aside>
       </section>
   
+      
       <div className="w-full flex justify-center items-center">
       <div className="max-w-md">
         <img
@@ -167,11 +168,11 @@ const AddNewUser = () => {
             <a className="no-underline border-b border-grey-dark text-grey-dark" href="#">
               Privacy Policy
             </a>
-          </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  // </div>
+        </div>
   );
 };
 

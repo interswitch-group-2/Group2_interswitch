@@ -43,7 +43,7 @@ const BlacklistedItems = () => {
     try {
       const itemName = items[index].item;
       const response = await fetch('https://safegate-backend-a63df812f989.herokuapp.com/blacklist/remove', {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authTokens}`,
