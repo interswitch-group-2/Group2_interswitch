@@ -161,13 +161,13 @@ const ItemList = () => {
 
       {/* Next Button */}
       <div className="flex justify-center mt-6">
-        <button
+        {/* <button
           onClick={handleNextPage}
-          disabled={loading || items.length < 5} // Disable button when loading or no more items to fetch
+          disabled={loading || items.length < 5} 
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-12 rounded"
         >
           Next
-        </button>
+        </button> */}
       </div>
     </div>
   </div>
