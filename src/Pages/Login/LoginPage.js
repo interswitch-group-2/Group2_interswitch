@@ -5,7 +5,7 @@ const LoginPage = () => {
   const { loginUser, error } = useContext(AuthContext);
 
   return (
-    <div className="w-full my-[32%] justify-center flex-col flex-wrap md:ml-[40%] mt-52 block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+    <div className="w-full my-[12%] justify-center md:ml-[35%] flex-col flex-wrap block max-w-md rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
       {error && <div className="error">{error}</div>}
       <section className="dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center mx-auto min:h-screen lg:py-0">
