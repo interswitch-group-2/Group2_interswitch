@@ -36,8 +36,9 @@ export const AuthProvider = ({ children }) => {
         }),
       });
       const data = await response.json();
-      console.log(data)
-      let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
+      // console.log(data)
+      
+      // let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
 
       if (response.status === 200) {
         setAuthTokens(data.data);
