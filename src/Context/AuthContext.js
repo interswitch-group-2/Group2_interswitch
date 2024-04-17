@@ -37,25 +37,27 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       console.log(data)
-      let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
+      // let errorMessage = 'An error occurred during login. You might need to input your details correctly and try again.'
 
       if (response.status === 200) {
+        // const { data } = response
         setAuthTokens(data.data);
         setUser(jwtDecode(data.data));
         localStorage.setItem('authTokens', JSON.stringify(data.data));
         alert(data.message)
         navigate('/admin');
-      } else if(response.status === 400) {
-        errorMessage = data.message
-        setError(errorMessage);
+      } 
+      // else if(response.status === 400) {
+      //   errorMessage = data.message
+      //   setError(errorMessage);
         // console.log(errorMessage)
-      } else if(response.status === 401) {
-        errorMessage = data.message
-        setError(errorMessage);
-        // console.log(errorMessage)
-      }
+      // } else if(response.status === 401) {
+      //   errorMessage = data.message
+      //   setError(errorMessage);
+      //   // console.log(errorMessage)
+      // }
       else {
-        setError(errorMessage);
+        setError(data.message);
         // console.log(errorMessage)
       }
     } catch (error) {
@@ -65,7 +67,8 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  const logoutUser = () => {
+  const logoutUser = (e) => {
+    e.preventDefault()
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem('authTokens');
@@ -95,10 +98,14 @@ export const AuthProvider = ({ children }) => {
   //     }
   // }
 
+  const isAuthenticated = !!authTokens;
+
   const contextData = {
+    
     user: user,
     error : error,
     authTokens: authTokens,
+    isAuthenticated: isAuthenticated,
     loginUser: loginUser,
     logoutUser: logoutUser,
   };

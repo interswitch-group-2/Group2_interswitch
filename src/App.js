@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import React, { useEffect, useState } from 'react';
 import './App.css';
 import LoginPage from './Pages/Login/LoginPage';  
-// import SignUpHeader from './components/SignUpHeader'; 
+
 import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header'
 import { AuthProvider } from './Context/AuthContext'
